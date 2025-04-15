@@ -24,4 +24,19 @@ Mappa la risposta per ottenere oggetti con questo formato:
 
 Inserisci questi studenti nello stato
 
+## Milestone 3 – Aggiunta studente
+
+Collega il form allo stato
+
+Al submit:
+
+Valida i dati
+
+Aggiungi il nuovo studente immutabilmente
+
+Mostra messaggio di conferma
+
+Resetta il form
+
+
 
