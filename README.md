@@ -38,5 +38,11 @@ Mostra messaggio di conferma
 
 Resetta il form
 
+## Milestone 4 – Filtri e Ordinamento
 
+
+Filtro live su name e course
+
+
+Ordinamento per nome o corso tramite select
 

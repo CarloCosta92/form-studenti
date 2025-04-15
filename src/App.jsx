@@ -29,10 +29,15 @@ function App() {
   const [students, setStudents] = useState([])
   //variabile per compilazione del form
   const [form, setForm] = useState({ name: '', course: '', status: 'active' });
+  //variabile per filtro nome
+  const [filterName, setFilterName] = useState('');
+  //variabile per filtro corso
+  const [filterCourse, setFilterCourse] = useState('');
 
 
   const endpoint = "https://jsonplaceholder.typicode.com/users";
 
+  //chiamata all api per array stud
   useEffect(() => {
     axios.get(endpoint)
       .then(response => {
@@ -54,7 +59,6 @@ function App() {
       });
   }, []);
 
-
   //funzione che rileva il cambiamento nell'input
   function handleChange(e) {
     const { name, value } = e.target;
@@ -67,6 +71,24 @@ function App() {
     setStudents(prevStudents => [...prevStudents, form]);
     setForm({ name: '', course: '', status: 'active' });
   };
+
+
+  // Funzione per gestire il cambiamento nel campo di filtro per il nome
+  const handleFilterName = (e) => {
+    setFilterName(e.target.value);
+  };
+
+  // Funzione per gestire il cambiamento nel campo di filtro per i corsi
+  const handleFilterCourse = (e) => {
+    setFilterCourse(e.target.value);
+  };
+
+  // Funzione per filtrare gli studenti 
+  const filteredStudents = students.filter(student => {
+    const nameMatch = student.name.toLowerCase().includes(filterName.toLowerCase());
+    const courseMatch = student.course.toLowerCase().includes(filterCourse.toLowerCase());
+    return nameMatch && courseMatch;
+  });
 
 
   return (
@@ -100,8 +122,8 @@ function App() {
 
         <section className="filter-section">
           <h2>Filtra</h2>
-          <input type="text" id="filter-name" placeholder="Filtra per nome" />
-          <input type="text" id="filter-course" placeholder="Filtra per corso" />
+          <input type="text" id="filter-name" placeholder="Filtra per nome" onChange={handleFilterName} />
+          <input type="text" id="filter-course" placeholder="Filtra per corso" onChange={handleFilterCourse} />
         </section>
 
         <section className="list-section">
@@ -117,7 +139,7 @@ function App() {
           </div>
 
           <ul id="student-list">
-            {students.map((student, index) => (
+            {filteredStudents.map((student, index) => (
               <li key={index} className={student.status === 'inactive' ? 'inactive' : ''}>
                 <div>
                   <strong>{student.name}</strong> - {student.course}
